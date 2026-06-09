@@ -1,0 +1,9 @@
+.query-form-container {
+  border: solid;
+  display: flex;
+  flex-direction: column;
+}
+
+.query-form-submit {
+  align-self: flex-start;
+}

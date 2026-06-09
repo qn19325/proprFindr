@@ -4,11 +4,13 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 2rem;
 }
 
 .home-data-container {
   width: 80%;
-  height: 80%;
+  flex: 1;
+  min-height: 0;
   border: solid;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
