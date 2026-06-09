@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 
-interface PropertyResult {
+export interface Image {
+  caption: string;
+  srcUrl: string;
+  url: string;
+}
+export interface PropertyResult {
   id: string;
   available: boolean;
   phone: string;
@@ -15,7 +20,7 @@ interface PropertyResult {
   latitude: number;
   longitude: number;
   features: string[];
-  photos: string[];
+  images: Image[];
   floorplans: string[];
   nearest_stations: string[];
 }
