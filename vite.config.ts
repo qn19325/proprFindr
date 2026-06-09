@@ -5,6 +5,15 @@ import { defineConfig } from 'vite';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    proxy: {
+      '/rightmove': {
+        target: 'https://www.rightmove.co.uk',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/rightmove/, ''),
+      },
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',
