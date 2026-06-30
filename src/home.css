@@ -18,3 +18,8 @@
   gap: 1rem;
   align-self: center;
 }
+
+.home-button {
+  display: flex;
+  align-self: flex-start;
+}

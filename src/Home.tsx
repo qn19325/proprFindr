@@ -11,7 +11,16 @@ const GRID_ITEMS = 15;
 export default function Home() {
   const [count, setCount] = useState(0);
   const [url, setUrl] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
   const { data, error, loading } = useFetch(url, count);
+
+  function modalHandler() {
+    setModalOpen((o) => !o);
+  }
+
+  function closeModal() {
+    setModalOpen(false);
+  }
 
   function search(url: string) {
     setUrl(url);
@@ -21,7 +30,10 @@ export default function Home() {
   return (
     <div className="home-container">
       <div>ProprFindr</div>
-      <QueryForm onSearch={search} />
+      <button className="home-button" onClick={modalHandler}>
+        Search
+      </button>
+      {modalOpen && <QueryForm onSearch={search} onClose={closeModal} />}
       <div className="home-data-container">
         {data?.slice(0, GRID_ITEMS).map((val) => {
           return (

@@ -16,9 +16,10 @@ const LOCATION_OPTIONS = [
 
 interface QueryFormProps {
   onSearch: (url: string) => void;
+  onClose: () => void;
 }
 
-export default function QueryForm({ onSearch }: QueryFormProps) {
+export default function QueryForm({ onSearch, onClose }: QueryFormProps) {
   const [numBedrooms, setNumBedrooms] = useState(0);
   const [location, setLocation] = useState('');
   const selected = LOCATION_OPTIONS.find((loc) => loc.value === location);
@@ -33,47 +34,59 @@ export default function QueryForm({ onSearch }: QueryFormProps) {
       _includeLetAgreed: 'on',
     });
     onSearch(`/rightmove/property-to-rent/find.html?${params}`);
+    onClose();
   }
 
   return (
-    <form className="query-form-container" action={submitHandler}>
-      <div>Location:</div>
-      {LOCATION_OPTIONS.map(({ value, label }) => {
-        return (
-          <label key={label}>
-            <input
-              type="radio"
-              value={value}
-              name="location"
-              onChange={(e) => {
-                setLocation(e.target.value);
-              }}
-              checked={location === value}
-            />
-            {label}
-          </label>
-        );
-      })}
-      <div>Bedrooms</div>
-      {BEDROOM_OPTIONS.map(({ value, label }) => {
-        return (
-          <label key={label}>
-            <input
-              type="radio"
-              value={value}
-              name="bedrooms"
-              onChange={(e) => {
-                setNumBedrooms(Number(e.target.value));
-              }}
-              checked={numBedrooms === value}
-            />
-            {label}
-          </label>
-        );
-      })}
-      <button className="query-form-submit" type="submit">
-        Search
-      </button>
-    </form>
+    <div className="query-form-overlay" onClick={onClose}>
+      <form
+        className="query-form-container"
+        action={submitHandler}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
+        <div>Location:</div>
+        {LOCATION_OPTIONS.map(({ value, label }) => {
+          return (
+            <label key={label}>
+              <input
+                type="radio"
+                value={value}
+                name="location"
+                onChange={(e) => {
+                  setLocation(e.target.value);
+                }}
+                checked={location === value}
+              />
+              {label}
+            </label>
+          );
+        })}
+        <div>Bedrooms</div>
+        {BEDROOM_OPTIONS.map(({ value, label }) => {
+          return (
+            <label key={label}>
+              <input
+                type="radio"
+                value={value}
+                name="bedrooms"
+                onChange={(e) => {
+                  setNumBedrooms(Number(e.target.value));
+                }}
+                checked={numBedrooms === value}
+              />
+              {label}
+            </label>
+          );
+        })}
+        <button className="query-form-submit" type="submit">
+          Search
+        </button>
+        <button onClick={onClose} type="button">
+          Close
+        </button>
+      </form>
+    </div>
   );
 }

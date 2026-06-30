@@ -1,7 +1,20 @@
+.query-form-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 1;
+}
+
 .query-form-container {
   border: solid;
   display: flex;
   flex-direction: column;
+  padding: 2rem;
+  background: white;
 }
 
 .query-form-submit {
