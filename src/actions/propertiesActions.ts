@@ -10,6 +10,11 @@ export interface PropertiesFetchSuccessAction {
   payload: PropertyResult[];
 }
 
+export interface PropertiesFetchFailureAction {
+  type: 'properties/fetch/failure';
+  payload: string;
+}
+
 export const propertiesFetchRequestAction = (): PropertiesFetchRequestAction => {
   return {
     type: 'properties/fetch/request',
@@ -22,6 +27,13 @@ export const propertiesFetchSuccessAction = (
   return {
     type: 'properties/fetch/success',
     payload: properties,
+  };
+};
+
+export const propertiesFetchFailureAction = (err: string): PropertiesFetchFailureAction => {
+  return {
+    type: 'properties/fetch/failure',
+    payload: err,
   };
 };
 
@@ -46,6 +58,8 @@ export const fetchProperties = () => async (dispatch: AppDispatch) => {
     };
     dispatch(propertiesFetchSuccessAction(model.props.pageProps.searchResults.properties));
   } catch (err) {
-    console.log(err instanceof Error ? err.message : err);
+    const errorStr = err instanceof Error ? err.message : String(err);
+    console.log(errorStr);
+    dispatch(propertiesFetchFailureAction(errorStr));
   }
 };
